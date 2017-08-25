@@ -17,6 +17,9 @@ repository is limited to 2 levels: class and instance. For example, `util/java` 
 * Do not use overly generic names, someone looking for a model should find it quickly.
 * Provide a readme.md file that explains the context of the model
 
+## License
+
+All models must be submitted under the Apache 2.0 license.
 
 ## Workflow
 
@@ -137,25 +140,3 @@ using your real name. Sorry, no pseudonyms or anonymous contributions.
 
 Many Git UI tools have support for adding the `Signed-off-by` line to the end of your commit
 message. This line can be automatically added by the `git commit` command by using the `-s` option.
-
-#### Small patch exception
-
-There are some exceptions to the signing requirement. Currently these are:
-
-* Your patch fixes spelling or grammar errors.
-
-### Merge approval
-
-The Bnd maintainers will review your pull request and, if approved, will merge into
-the main repo.
-
-### How can I become a maintainer?
-
-* Step 1: learn the code inside out
-* Step 2: make yourself useful by contributing code, bugfixes, support etc.
-* Step 3: introduce your self to the other maintainers
-
-Don't forget: being a maintainer is a time investment. Make sure you will have time
-to make yourself available. You don't have to be a maintainer to make a difference
-on the project!
-
