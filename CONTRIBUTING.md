@@ -1,39 +1,32 @@
 # Contributing to AlloyTools Alloy Models
 
-Found a bug, issue, or shortcoming in of the existing models? Created an interesting model? We are activally looking for Alloy models to be sgar
-Want to hack on Bnd? Here are instructions to get you
-started. They are probably not perfect, please let us know if anything
-feels wrong or incomplete.
+Found a bug, issue, or shortcoming in of the existing models? Created an interesting model? We would love your fixes and feedback.
 
 ## Reporting Issues
 
-When reporting [issues](https://github.com/bndtools/bnd/issues) 
-on GitHub please include the version of Bnd you are using, `bnd version`,
-as well as the version of Java, `java -version`, and your OS. Also, please
-provide the `Git-SHA` and `Git-Descriptor` headers from the Bnd jar file.
-Please include the steps required to reproduce the problem if possible and applicable.
-This information will help us review and fix your issue faster.
+Reporting [issues](https://github.com/AlloyTools/org.alloytools.alloy.models/issues). Please provide the version of Alloy you are using. If you can provide examples, then that would be very much appreciated. When you provide a PR, our gratidtude will have no bounds.
 
-## Build Environment
+## Adding a new Model
 
-The only thing you need to build Bnd is Java. We use Java 7.
-We use Gradle to build and the repo includes `gradlew`.
-You can use your system `gradle` but we require 
-at least version 2.12.
+If you want to add a new model then you need to find a good place for it. Each model should be in a directory that has two levels: class and 
 
-`./gradlew`              - Assembles, tests and releases the projects into dist/bundles  
-`./gradlew :dist:build`  - Assembles and tests the projects  
-`./gradlew :dist:index`  - Assembles and releases the projects into dist/bundles..
+repository is limited to 2 levels: class and instance. For example, `util/java` or `algorithms/dijkstra`. In this directory you can place the model files. If needed, sub directories can be used. Some hints:
 
-We use [Travis CI](https://travis-ci.org/bndtools/bnd) and the repo includes a
-`.travis.yml` file to build on Travis CI.
+* Do not use spaces in the class, instance, and file names. Preferably use short java fully qualified like like names. That is, if you need multiple parts use a dot ('.') to separate the parts.
+* Try to reuse directories, this makes things easier to find
+* Do not use overly generic names, someone looking for a model should find it quickly.
+* Provide a readme.md file that explains the context of the model
+
 
 ## Workflow
 
-We use [git triangular workflow](https://www.sociomantic.com/blog/2014/05/git-triangular-workflow/).
-This means that no one, not even the Bnd maintainers, push contributions directly into the [main Bnd
-repo](https://github.com/bndtools/bnd). All contribution come in through pull requests.
-So each contributor will need to [fork the main Bnd repo](https://github.com/bndtools/bnd/fork)
+If you have a small fix, then just edit the model and commit it. Github will automatically fork the repo and create a pull request. 
+
+### Regular contributions
+
+For more extensive and (can we dream?) regular contributions we suggest to clone the repository. We use [git triangular workflow](https://www.sociomantic.com/blog/2014/05/git-triangular-workflow/).
+This means that no one, not even the maintainers of this site, push contributions directly into the [main org.alloytools.alloy.models repo](https://github.com/AlloyTools/org.alloytools.alloy.models). All contribution come in through pull requests (PR).
+So each contributor will need to [fork the main models repo](https://github.com/AlloyTools/org.alloytools.alloy.models/fork)
 on GitHub. All contributions are made as commits to your fork. Then you submit a
 pull request to have them considered for merging into the main Bnd repo.
 
@@ -41,13 +34,13 @@ pull request to have them considered for merging into the main Bnd repo.
 
 After forking the main Bnd repo on GitHub, you can clone the main repo to your system:
 
-    git clone https://github.com/bndtools/bnd.git
+    git clone https://github.com/AlloyTools/org.alloytools.alloy.models.git
 
 This will clone the main repo to a local repo on your disk and set up the `origin` remote in Git.
 Next you will set up the the second side of the triangle to your fork repo.
 
-    cd bnd
-    git remote add fork git@github.com:github-user/bnd.git
+    cd org.alloytools.alloy.models
+    git remote add fork git@github.com:<github-user>/org.alloytools.alloy.models.git
 
 Make sure to replace the URL with the SSH URL to your fork repo on GitHub. Then we configure
 the local repo to push your commits to the fork repo.
@@ -64,26 +57,17 @@ unless you are already using Git 2.0 where it is the default.
 Finally, the third side of the triangle is pull requests from your fork repo to the
 main repo.
 
-Make sure to set up [Travis CI](https://travis-ci.org) for your fork repo to test your commits
-when they are pushed to your fork repo. Travis CI will also build any [pull requests you 
-submit](https://travis-ci.org/bndtools/bnd/pull_requests).
-
 ## Contribution guidelines
 
 ### Pull requests are always welcome
 
 We are always thrilled to receive pull requests, and do our best to
 process them as fast as possible. Not sure if that typo is worth a pull
-request? Do it! We will appreciate it.
+request? (Again, you can edit the files directly on Github!) Do it! We will appreciate it.
 
 If your pull request is not accepted on the first try, don't be
-discouraged! If there's a problem with the implementation, hopefully you
+discouraged! If there's a problem, hopefully you
 received feedback on what to improve.
-
-We're trying very hard to keep Bnd lean and focused. We don't want it
-to do everything for everybody. This means that we might decide against
-incorporating a new feature. However, there might be a way to implement
-that feature *on top of* Bnd.
 
 ### Create issues...
 
@@ -97,55 +81,6 @@ Please take a moment to check that an issue doesn't already exist
 documenting your bug report or improvement proposal. If it does, it
 never hurts to add a quick "+1" or "I have this problem too". This will
 help prioritize the most common problems and requests.
-
-### Conventions
-
-Fork the repo and make changes on your fork in a feature branch:
-
-- If it's a bugfix branch, name it XXX-something where XXX is the number of the
-  issue
-- If it's a feature branch, create an enhancement issue to announce your
-  intentions, and name it XXX-something where XXX is the number of the issue.
-
-Submit unit tests for your changes. We use `junit` and most projects already 
-have a number of test cases. The test cases for `biz.aQute.bndlib` are however
-in the `biz.aQute.bndlib.tests` project for historical reasons.
-Take a look at existing tests for inspiration. Run the full build including all
-the tests in your branch before submitting a pull request. Having Travis CI set up
-for your fork repo is quite a help here.
-
-Write clean code. Universally formatted code promotes ease of writing, reading,
-and maintenance. We use Eclipse and all the projects have Eclipse `.settings` which
-will properly format the code. Make sure to avoid unnecessary white space changes
-which complicate diffs and make reviewing pull requests much more time consuming.
-
-Pull requests descriptions should be as clear as possible and include a
-reference to all the issues that they address.
-
-Pull requests must not contain commits from other users or branches.
-
-Commit messages must start with a short summary (max. 50
-chars) written in the imperative, followed by an optional, more detailed
-explanatory text which is separated from the summary by an empty line.
-
-    index: Remove absolute URLs from the OBR index
-
-    The url for the root was missing a trailing slash. Using File.toURI to
-    create an acceptable url.
-
-Code review comments may be added to your pull request. Discuss, then make the
-suggested modifications and push additional commits to your feature branch. Be
-sure to post a comment after pushing. The new commits will show up in the pull
-request automatically, but the reviewers will not be notified unless you
-comment.
-
-Before the pull request is merged, make sure that you squash your commits into
-logical units of work using `git rebase -i` and `git push -f`. After every
-commit, the test suite should be passing. Include documentation changes in the
-same commit so that a revert would remove all traces of the feature or fix.
-
-Commits that fix or close an issue should include a reference like `Closes #XXX`
-or `Fixes #XXX`, which will automatically close the issue when merged.
 
 ### Sign your work
 
